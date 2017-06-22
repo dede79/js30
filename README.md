@@ -1,2 +1,2 @@
 # js30
-## Mini Projeccts in javascript
+## Mini Projects in javascript

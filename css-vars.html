@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+<!--    data atribute is an attribute we make up that give us an instant object in the DOM, we can then manipulate with js using dataset see below-->
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+
+  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+  <style>
+    
+    /*css varibles for css3*/
+    /*declare on an element, like root is the highest element- define the default values that will change*/
+    :root{
+      --base: #ffc900;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+    
+   /*using the var in css*/
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter:blur(var(--blur));
+    }
+    
+    .h1{
+      color: var(--base);
+    }
+    /*
+      misc styles, nothing to do with CSS variables
+    */
+    
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+    .controls {
+      margin-bottom: 50px;
+    }
+    input {
+      width:100px;
+    }
+  </style>
+
+  <script>
+//we'll use js to update all the css vars
+    const inputs = document.querySelectorAll('.controls input');
+    
+    //create function to log to console
+    function handleUpdate() {
+      //suffix is the of sizing suffix in data- above
+      //dataset is an object that contain all data attributes from this element, or wht we have in html here. takes all data- and put in an object.
+      const suffix = this.dataset.sizing || '';//or nothing is for the color as it doesn't have px or no suffix for hex code.  
+      //console.log(this.name); will give us blur and spacing as per name attribute above.
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+      //backticks can be used for interpolating the name property
+    }
+    
+//using forEach been added to the nodelist recently,loop over inputs,listen to input event and moisemove
+    inputs.forEach(input => input.addEventListener('change',handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove',handleUpdate));
+    
+    confirm
+  </script>
+
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
